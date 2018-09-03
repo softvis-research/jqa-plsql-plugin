@@ -16,5 +16,12 @@ public interface PLSQLFileDescriptor extends PLSQLDescriptor, FileDescriptor, Na
 	PLSQLBlockDescriptor getPLSQLBlock();
 	void setPLSQLBlock(PLSQLBlockDescriptor plsqlBlock);
 	
+	@Relation("CONTAINS")
+	TriggerDescriptor getTrigger();
+	void setTrigger(TriggerDescriptor trigger);
+	
+	@Relation("CONTAINS")
+	SubprogramDescriptor getSubprogram();
+	void setSubprogram(SubprogramDescriptor subprogram);
 	
 }

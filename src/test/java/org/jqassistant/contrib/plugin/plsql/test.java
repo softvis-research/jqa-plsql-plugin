@@ -22,10 +22,13 @@ public class test {
     public void parseFile() {
         try {
         	
-        	String plsql = "DECLARE MESSAGE VARCHAR2(20):= 'Hello, World!';\n" + 
-        			"RANDI INT:=10;\n" +
-        			"BEGIN DBMS_OUTPUT.PUT_LINE(MESSAGE); \n" + 
-        			"END;";
+        	String plsql = "CREATE OR REPLACE PROCEDURE GREETINGS \n" + 
+        			"AS\n" + 
+        			"MESSAGE VARCHAR2(20):= 'Hello, World!';\n" + 
+        			"BEGIN \n" + 
+        			"   DBMS_OUTPUT.PUT_LINE(MESSAGE); \n" + 
+        			"END; \n" + 
+        			"/";
         	
 //        	String plsql = "CREATE OR REPLACE TRIGGER display_salary_changes \n" + 
 //        			"BEFORE DELETE OR INSERT OR UPDATE ON customers \n" + 
@@ -47,7 +50,9 @@ public class test {
             
             ParseTree t = parser.sql_script();
             
-            parse(t);
+//            parse(t);
+            
+            graphParse(t, "");
                   
             assertThat(1, equalTo(1));
             		
@@ -61,47 +66,37 @@ public class test {
     	
     	String className = tree.getClass().getSimpleName();
     	
-    	
-    	System.out.println("Name: "+className);
-    	
-    	switch (className) {
-    	case "Anonymous_blockContext":
-    		System.out.println("Anonymous Block: ");
-    		System.out.println(tree.getText());
-    		System.out.println("");
-    		break; 
-    	case "Seq_of_declare_specsContext":
-    		System.out.println("DeclareBlock: ");
-    		System.out.println(tree.getText());
-    		System.out.println("");
-    		break;
-    	case "Seq_of_statementsContext":
-    		System.out.println("BeginBlock: ");
-    		System.out.println(tree.getText());
-    		System.out.println("");
-    		break;    		
-    	case "Variable_declarationContext":
-    		System.out.println("Variable: ");
-    		System.out.println(tree.getText());
-    		System.out.println("Name: "+ tree.getChild(0).getText()); //IdentifierContext
-    		System.out.println("Data Type: "+tree.getChild(1).getText()); //Type_specContext
-    		System.out.println("Value: "+tree.getChild(2).getText()); //AtomContext!!
-    		System.out.println("");
-    		break;
-    		
-    	}
+    	System.out.println(className);
+    	System.out.println("ChildrenCount: "+tree.getChildCount());
     	
     	
-//    	if (tree.getClass().getSimpleName().equals("Regular_idContext")) {
-//    		System.out.println(tree.getChild(0).getText());
-//    	}
-//    	
-//    	if (tree.getClass().getSimpleName().equals("IdentifierContext")) {
+//    	System.out.println("Name: "+className);
+    	
+//    	switch (className) {
+//    	case "Anonymous_blockContext":
+//    		System.out.println("Anonymous Block: ");
 //    		System.out.println(tree.getText());
-//    	}
-//    	
-//    	if (className.equals("Variable_declarationContext")) {
+//    		System.out.println("");
+//    		break; 
+//    	case "Seq_of_declare_specsContext":
+//    		System.out.println("DeclareBlock: ");
 //    		System.out.println(tree.getText());
+//    		System.out.println("");
+//    		break;
+//    	case "Seq_of_statementsContext":
+//    		System.out.println("BeginBlock: ");
+//    		System.out.println(tree.getText());
+//    		System.out.println("");
+//    		break;    		
+//    	case "Variable_declarationContext":
+//    		System.out.println("Variable: ");
+//    		System.out.println(tree.getText());
+//    		System.out.println("Name: "+ tree.getChild(0).getText()); //IdentifierContext
+//    		System.out.println("Data Type: "+tree.getChild(1).getText()); //Type_specContext
+//    		System.out.println("Value: "+tree.getChild(2).getText()); //AtomContext!!
+//    		System.out.println("");
+//    		break;
+//    		
 //    	}
     	
     	if (tree.getChildCount() > 0) {
@@ -109,14 +104,28 @@ public class test {
 	    	int treeChildrenCount = tree.getChildCount();
 	    	
 	    	for (int x = 0; x < treeChildrenCount; x++) {
-	    		//System.out.println(x);
-	    		//System.out.println(tree.getChild(x).getClass().getSimpleName());
+//	    		System.out.println(x);
+//	    		System.out.println(tree.getChild(x).getClass().getSimpleName());
 	    		parse(tree.getChild(x));
 	    	}
 	    		
     	}	
     	
     	
+    }
+    
+    public void graphParse(ParseTree tree, String str) {
+    	
+    	str += " -> " + tree.getClass().getSimpleName();
+    	
+    	for (int x = 0; x < tree.getChildCount(); x++) {
+    		
+    		graphParse(tree.getChild(x), str);
+    	}
+    	if (tree.getChildCount() == 0) { 
+    		System.out.println(str);
+    	
+    	}
     }
 
 }

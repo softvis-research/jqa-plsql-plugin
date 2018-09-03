@@ -56,5 +56,21 @@ public class PLSQLScannerTest extends AbstractPluginIT {
 
         store.commitTransaction();
     }
+    
+    @Test //Procedure test
+    public void scanSQLFileProc() {
+        store.beginTransaction();
+        // Scan the test PLSQL file located as resource in the classpath
+        File testFile = new File(getClassesDirectory(PLSQLScannerTest.class), "/test_procedure.sql");
+
+        // Scan the PLSQL file and assert that the returned descriptor is a PLSQLFileDescriptor
+        assertThat(getScanner().scan(testFile, "/test_procedure.sql", DefaultScope.NONE), CoreMatchers.<Descriptor>instanceOf(PLSQLFileDescriptor.class));
+
+        assertThat(2, equalTo(2));
+
+        store.commitTransaction();
+    	
+    }
+    
 }
 // end::CSVScannerPluginTest[]

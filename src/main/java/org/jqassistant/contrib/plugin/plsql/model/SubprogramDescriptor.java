@@ -21,7 +21,6 @@ public interface SubprogramDescriptor extends PLSQLDescriptor, NamedDescriptor {
 	@Property("procedure")
 	Boolean isProcedure();
 	void setProcedure(Boolean procedureSubprogram);
-	
 
 	@Relation("DECLARES")
 	List<VariableDescriptor> getVariables();
@@ -29,8 +28,10 @@ public interface SubprogramDescriptor extends PLSQLDescriptor, NamedDescriptor {
 	
 	@Relation("CONTAINS")
 	BeginBlockDescriptor getBeginBlock();
+	void setBeginBlock(BeginBlockDescriptor begBlockDescriptor);
 	
 	@Relation("CONTAINS")
 	ExceptionBlockDescriptor getExceptionBlock();
+	void setExceptionBlock(ExceptionBlockDescriptor excBlockDescriptor);
 	
 }
