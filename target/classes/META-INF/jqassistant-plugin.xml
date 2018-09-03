@@ -11,7 +11,10 @@
         <class>org.jqassistant.contrib.plugin.plsql.model.VariableDescriptor</class>
         <class>org.jqassistant.contrib.plugin.plsql.model.DataTypeDescriptor</class>
         <class>org.jqassistant.contrib.plugin.plsql.model.ValueDescriptor</class>
+<<<<<<< HEAD
         <class>org.jqassistant.contrib.plugin.plsql.model.SubprogramDescriptor</class>
+=======
+>>>>>>> fbe9074a0d11cc61d8266f2b6d4b7379eb405b89
     </model>
     <scanner>
         <class>org.jqassistant.contrib.plugin.plsql.scanner.PLSQLFileScannerPlugin</class>

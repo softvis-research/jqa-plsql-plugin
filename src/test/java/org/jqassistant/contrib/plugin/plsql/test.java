@@ -50,8 +50,6 @@ public class test {
             
             ParseTree t = parser.sql_script();
             
-//            parse(t);
-            
             graphParse(t, "");
                   
             assertThat(1, equalTo(1));
@@ -97,6 +95,47 @@ public class test {
 //    		System.out.println("");
 //    		break;
 //    		
+    	
+    	System.out.println("Name: "+className);
+    	
+    	switch (className) {
+    	case "Anonymous_blockContext":
+    		System.out.println("Anonymous Block: ");
+    		System.out.println(tree.getText());
+    		System.out.println("");
+    		break; 
+    	case "Seq_of_declare_specsContext":
+    		System.out.println("DeclareBlock: ");
+    		System.out.println(tree.getText());
+    		System.out.println("");
+    		break;
+    	case "Seq_of_statementsContext":
+    		System.out.println("BeginBlock: ");
+    		System.out.println(tree.getText());
+    		System.out.println("");
+    		break;    		
+    	case "Variable_declarationContext":
+    		System.out.println("Variable: ");
+    		System.out.println(tree.getText());
+    		System.out.println("Name: "+ tree.getChild(0).getText()); //IdentifierContext
+    		System.out.println("Data Type: "+tree.getChild(1).getText()); //Type_specContext
+    		System.out.println("Value: "+tree.getChild(2).getText()); //AtomContext!!
+    		System.out.println("");
+    		break;
+    		
+    	}
+    	
+    	
+//    	if (tree.getClass().getSimpleName().equals("Regular_idContext")) {
+//    		System.out.println(tree.getChild(0).getText());
+//    	}
+//    	
+//    	if (tree.getClass().getSimpleName().equals("IdentifierContext")) {
+//    		System.out.println(tree.getText());
+//    	}
+//    	
+//    	if (className.equals("Variable_declarationContext")) {
+//    		System.out.println(tree.getText());
 //    	}
     	
     	if (tree.getChildCount() > 0) {
@@ -106,6 +145,8 @@ public class test {
 	    	for (int x = 0; x < treeChildrenCount; x++) {
 //	    		System.out.println(x);
 //	    		System.out.println(tree.getChild(x).getClass().getSimpleName());
+	    		//System.out.println(x);
+	    		//System.out.println(tree.getChild(x).getClass().getSimpleName());
 	    		parse(tree.getChild(x));
 	    	}
 	    		

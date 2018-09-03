@@ -87,8 +87,6 @@ public class PLSQLSourceParser {
     			
     		}
     		
-
-    		
     		
     	}
     	//if current Node has Children
