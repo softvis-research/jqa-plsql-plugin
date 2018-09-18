@@ -11,39 +11,11 @@
 
     <properties>
         <jqassistant.version>1.4.0</jqassistant.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <antlr.version>4.7.1</antlr.version>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-		      <plugin>
-		        <groupId>org.antlr</groupId>
-		        <artifactId>antlr4-maven-plugin</artifactId>
-		        <version>4.7</version>    
-		        <configuration>
-		       		<grammars>PlSqlLexer.g4</grammars>
-		        	<grammars>PlSqlParser.g4</grammars>
-		        	<visitor>true</visitor>
-		        	<listener>true</listener>
-		        </configuration>            
-		        <executions>
-		          <execution>
-		            <goals>
-		              <goal>antlr4</goal>
-		            </goals>            
-		          </execution>
-		        </executions>
-		      </plugin>           
-        </plugins>
-    </build>
 
     <!-- tag::dependencies[] -->
     <dependencies>
@@ -54,10 +26,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency> 
-  			<groupId>org.antlr</groupId> 
-  			<artifactId>antlr4</artifactId> 
- 			 <version>4.7.1</version> 
-		</dependency> 
+            <groupId>org.antlr</groupId> 
+            <artifactId>antlr4</artifactId> 
+             <version>${antlr.version}</version> 
+        </dependency> 
         <dependency>
             <groupId>com.buschmais.jqassistant.plugin</groupId>
             <artifactId>common</artifactId>
@@ -97,6 +69,68 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <!-- end::dependencies[] -->
+    <!-- end::dependencies[] -->    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+		      <plugin>
+		        <groupId>org.antlr</groupId>
+		        <artifactId>antlr4-maven-plugin</artifactId>
+		        <version>${antlr.version}</version>    
+		        <configuration>
+		       		<grammars>PlSqlLexer.g4</grammars>
+		        	<grammars>PlSqlParser.g4</grammars>
+		        	<visitor>true</visitor>
+		        	<listener>true</listener>
+		        </configuration>            
+                    <executions>
+                            <execution>
+                                    <goals>
+                                            <goal>antlr4</goal>
+                                    </goals>
+                            </execution>
+                    </executions>
+		      </plugin>           
+        </plugins>
+        
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>        
+    </build>
 
 </project>
