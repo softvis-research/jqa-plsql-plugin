@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-        <antlr.version>4.7.1</antlr.version>
+        <antlr.version>4.7</antlr.version>
     </properties>
 
     <!-- tag::dependencies[] -->
@@ -27,7 +27,7 @@
         </dependency>
         <dependency> 
             <groupId>org.antlr</groupId> 
-            <artifactId>antlr4</artifactId> 
+            <artifactId>antlr4-runtime</artifactId> 
              <version>${antlr.version}</version> 
         </dependency> 
         <dependency>
@@ -87,8 +87,8 @@
 		        <artifactId>antlr4-maven-plugin</artifactId>
 		        <version>${antlr.version}</version>    
 		        <configuration>
-		       		<grammars>PlSqlLexer.g4</grammars>
-		        	<grammars>PlSqlParser.g4</grammars>
+		        	<sourceDirectory>src/main/antlr4</sourceDirectory>
+		        	<outputDirectory>src/main/antlr4</outputDirectory>
 		        	<visitor>true</visitor>
 		        	<listener>true</listener>
 		        </configuration>            

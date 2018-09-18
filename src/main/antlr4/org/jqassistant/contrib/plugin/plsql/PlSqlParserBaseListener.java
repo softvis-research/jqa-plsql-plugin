@@ -1,6 +1,5 @@
+// Generated from org/jqassistant/contrib/plugin/plsql/PlSqlParser.g4 by ANTLR 4.7
 package org.jqassistant.contrib.plugin.plsql;
-
-// Generated from PlSqlParser.g4 by ANTLR 4.7.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
