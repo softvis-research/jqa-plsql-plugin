@@ -3,7 +3,6 @@ package org.jqassistant.contrib.plugin.plsql.model;
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
-//tag::class[]
 /**
  * Represents an anonymous PLSQl block.
  */
@@ -27,4 +26,3 @@ public interface PLSQLBlockDescriptor extends PLSQLDescriptor {
 	void setBlockString(String blockString);
 	
 }
-//end::class[]

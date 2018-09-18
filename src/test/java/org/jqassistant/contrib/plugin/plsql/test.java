@@ -16,32 +16,58 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
+
 public class test {
 	
     @Test
     public void parseFile() {
         try {
         	
-        	String plsql = "CREATE OR REPLACE PROCEDURE GREETINGS \n" + 
-        			"AS\n" + 
-        			"MESSAGE VARCHAR2(20):= 'Hello, World!';\n" + 
-        			"BEGIN \n" + 
-        			"   DBMS_OUTPUT.PUT_LINE(MESSAGE); \n" + 
-        			"END; \n" + 
-        			"/";
-        	
-//        	String plsql = "CREATE OR REPLACE TRIGGER display_salary_changes \n" + 
-//        			"BEFORE DELETE OR INSERT OR UPDATE ON customers \n" + 
-//        			"FOR EACH ROW \n" + 
-//        			"WHEN (NEW.ID > 0) \n" + 
-//        			"DECLARE \n" + 
-//        			"   sal_diff number; \n" + 
+//        	String plsql = "CREATE OR REPLACE FUNCTION TOTALCUSTOMERS \n" + 
+//        			"RETURN NUMBER IS \n" + 
+//        			"   TOTAL NUMBER(2) := 0; \n" + 
 //        			"BEGIN \n" + 
-//        			"   sal_diff := :NEW.salary  - :OLD.salary; \n" + 
-//        			"   dbms_output.put_line('Old salary: ' || :OLD.salary); \n" + 
-//        			"   dbms_output.put_line('New salary: ' || :NEW.salary); \n" + 
-//        			"   dbms_output.put_line('Salary difference: ' || sal_diff); \n" + 
+//        			"   SELECT COUNT(*) INTO TOTAL \n" + 
+//        			"   FROM CUSTOMERS; \n" + 
+//        			"    \n" + 
+//        			"   RETURN TOTAL; \n" + 
+//        			"END; ";
+//        	
+//        	String plsql = "CREATE OR REPLACE PROCEDURE GREETINGS \n" + 
+//        			"AS\n" + 
+//        			"MESSAGE VARCHAR2(20):= 'Hello, World!';\n" + 
+//        			"RANDI INT:=10;\n" + 
+//        			"BEGIN \n" + 
+//        			"   DBMS_OUTPUT.PUT_LINE(MESSAGE); \n"+
+//        			"	SELECT * FROM P; \n"+
+//        			"END; \n" + 
+//        			"/";
+        	
+//        	String plsql = "CREATE OR REPLACE TRIGGER DISPLAY_SALARY_CHANGES\n" + 
+//        			"BEFORE DELETE OR INSERT OR UPDATE ON CUSTOMERS\n" + 
+//        			"FOR EACH ROW\n" + 
+//        			"WHEN (NEW.ID > 0)\n" + 
+//        			"DECLARE\n" + 
+//        			"   SAL_DIFF NUMBER;\n" + 
+//        			"	RANDI INT := 10; \n" +
+//        			"BEGIN\n" + 
+//        			"   SAL_DIFF := :NEW.SALARY  - :OLD.SALARY;\n" + 
 //        			"END;";
+        	
+        	String plsql = "DECLARE message VARCHAR2(20):= 'Hello, World!';\n" + 
+        			"randi INT:=10;\n" + 
+        			"BEGIN DBMS_OUTPUT.PUT_LINE(meesage); \n" + 
+        			"SELECT * FROM P;\n" + 
+        			"END;";
+        	
+//        	String plsql = "DECLARE \n" + 
+//        			"   C_ADDR CUSTOMERS.ADDRESS%TYPE; \n" + 
+//        			"   CURSOR C_CUSTOMERS IS \n" + 
+//        			"      SELECT ID, NAME, ADDRESS FROM CUSTOMERS;\n" + 
+//        			"BEGIN\n" + 
+//        			"   OPEN C_CUSTOMERS;\n" + 
+//        			"   CLOSE C_CUSTOMERS;\n" + 
+//        			"END; ";
         	
             InputStream inputStream = new ByteArrayInputStream(plsql.getBytes(StandardCharsets.UTF_8));
             Lexer lexer = new PlSqlLexer(CharStreams.fromStream(inputStream));

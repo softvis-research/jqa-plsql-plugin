@@ -13,5 +13,6 @@ public interface TriggerDescriptor extends PLSQLDescriptor, NamedDescriptor {
 	
 	@Relation("CONTAINS")
 	PLSQLBlockDescriptor getPLSQLBlock();
+	void setPLSQLBlock(PLSQLBlockDescriptor plsqlBlock);
 
 }

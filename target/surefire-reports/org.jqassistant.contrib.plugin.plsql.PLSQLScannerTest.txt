@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.jqassistant.contrib.plugin.plsql.PLSQLScannerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 111.538 sec

@@ -12,6 +12,7 @@ import org.jqassistant.contrib.plugin.plsql.PlSqlParser;
 import org.jqassistant.contrib.plugin.plsql.model.PLSQLBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.PLSQLFileDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.SubprogramDescriptor;
+import org.jqassistant.contrib.plugin.plsql.model.TriggerDescriptor;
 import org.jqassistant.contrib.plugin.plsql.scanner.PLSQLProcedureParser;
 
 import com.buschmais.jqassistant.core.store.api.Store;
@@ -28,6 +29,7 @@ public class PLSQLSourceParser {
     }
 
     void parseFile(final FileResource item) {
+    	
         try {
         	//ANTLR4 PLSQL Lexer & Parser
             InputStream inputStream = item.createStream();
@@ -77,6 +79,7 @@ public class PLSQLSourceParser {
 	        		System.out.println("Added Procedure (Subprogram).");
 	        		
 	        		spDescriptor.setProcedure(true);
+	        		spDescriptor.setFunction(false);
 	        		spDescriptor.setName(tree.getChild(y).getText());
 	        		
 	        		final PLSQLProcedureParser procParser = new PLSQLProcedureParser(store, spDescriptor);
@@ -86,14 +89,58 @@ public class PLSQLSourceParser {
     			}
     			
     		}
+    	
+    	case "Create_function_bodyContext":
+    		
+    		for (int y = 0; y < tree.getChildCount(); y++) {
+    			
+    			if (tree.getChild(y).getClass().getSimpleName().equals("Function_nameContext")) {  				
+	    			
+	        		//Procedure subprogram
+	        		SubprogramDescriptor spDescriptor = store.create(SubprogramDescriptor.class);
+	        		fileDescriptor.setSubprogram(spDescriptor);
+	        		System.out.println("Added Procedure (Function).");
+	        		
+	        		spDescriptor.setProcedure(false);
+	        		spDescriptor.setFunction(true);
+	        		spDescriptor.setName(tree.getChild(y).getText());
+	        		
+	        		final PLSQLFunctionParser funcParser = new PLSQLFunctionParser(store, spDescriptor);
+	        		funcParser.parseTree(tree);
+	        		
+	        		return;
+    			}
+    			
+    		}
+    		
+    	case "Create_triggerContext":
+    		
+    		for (int y = 0; y < tree.getChildCount(); y++) {
+    			
+    			if (tree.getChild(y).getClass().getSimpleName().equals("Trigger_nameContext")) {  				
+	    			
+	        		//Procedure subprogram
+	        		TriggerDescriptor trDescriptor = store.create(TriggerDescriptor.class);
+	        		fileDescriptor.setTrigger(trDescriptor);
+	        		System.out.println("Added Trigger.");
+	        		
+	        		trDescriptor.setName(tree.getChild(y).getText());
+	        		
+	        		final PLSQLTriggerParser triggerParser = new PLSQLTriggerParser(store, trDescriptor);
+	        		triggerParser.parseTree(tree);
+	        		
+	        		return;
+    			}
+    			
+    		}
     		
     		
     	}
-    	//if current Node has Children
+    	//if current Node has Children...
     	if (tree.getChildCount() > 0) {
 
 	    	for (int x = 0; x < tree.getChildCount(); x++) {
-	    		//traverse every child of tree
+	    		//...traverse every child of tree
 	    		parseTree(tree.getChild(x));
 	    	}
 	    	

@@ -9,6 +9,7 @@ public interface BeginBlockDescriptor extends PLSQLDescriptor {
 	
 	@Relation("CONTAINS")
 	SQLStatementDescriptor getSQLStatement();
+	void setSQLStatement(SQLStatementDescriptor sql);
 	
 	@Relation("CALLS")
 	SubprogramDescriptor getSubprogram();

@@ -23,6 +23,5 @@ public interface PLSQLFileDescriptor extends PLSQLDescriptor, FileDescriptor, Na
 	@Relation("CONTAINS")
 	SubprogramDescriptor getSubprogram();
 	void setSubprogram(SubprogramDescriptor subprogram);
-
 	
 }

@@ -25,6 +25,10 @@ public interface SubprogramDescriptor extends PLSQLDescriptor, NamedDescriptor {
 	@Relation("DECLARES")
 	List<VariableDescriptor> getVariables();
 	void setVariables(List<VariableDescriptor> variables);
+
+	@Relation("DECLARES")
+	List<CursorDescriptor> getCursors();
+	void setCursors(List<CursorDescriptor> cursors);
 	
 	@Relation("CONTAINS")
 	BeginBlockDescriptor getBeginBlock();
@@ -33,5 +37,7 @@ public interface SubprogramDescriptor extends PLSQLDescriptor, NamedDescriptor {
 	@Relation("CONTAINS")
 	ExceptionBlockDescriptor getExceptionBlock();
 	void setExceptionBlock(ExceptionBlockDescriptor excBlockDescriptor);
+	
+	
 	
 }

@@ -28,21 +28,14 @@ public class PLSQLProcedureParser {
         	
         	case "Seq_of_declare_specsContext":
         		
-//        		DeclareBlockDescriptor decBlockDescriptor = store.create(DeclareBlockDescriptor.class);
-//        		blockDescriptor.setDeclareBlock(decBlockDescriptor);
-//        		
-//        		System.out.println("Added DeclareBlock.");
-//        		
-//        		//Add all declared variables from the Declare Block.
-//        		
-//        		final PLSQLVariableParser varParser = new PLSQLVariableParser(store, decBlockDescriptor);
-//        		varParser.parseTree(tree.getChild(x)); //Seq_of_declare_specs -> Declare_specs
-//        		
+        		//Add all declared variables from the Declare Block.
+        		
+        		final PLSQLVariableParser<SubprogramDescriptor> varParser = new PLSQLVariableParser<>(store, spDescriptor);
+        		varParser.parseTree(tree.getChild(x)); //Seq_of_declare_specs -> Declare_specs
+        		
         		break;
         	
-        	case "BodyContext":
-        		
-        		
+        	case "BodyContext":		
         		
         		for (int y=0; y < tree.getChild(x).getChildCount(); y++) {
         			
@@ -52,6 +45,9 @@ public class PLSQLProcedureParser {
                 		spDescriptor.setBeginBlock(begBlockDescriptor);
                 		
                 		System.out.println("Added BeginBlock.");
+                		
+                		final PLSQLBeginBlockParser bbParser = new PLSQLBeginBlockParser(store, begBlockDescriptor);
+                		bbParser.parseTree(tree.getChild(x).getChild(y));
                 		
                 		break;        				
         			}

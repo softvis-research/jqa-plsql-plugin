@@ -1,5 +1,5 @@
 <jqa-plugin:jqassistant-plugin
-        xmlns:jqa-plugin="http://www.buschmais.com/jqassistant/core/plugin/schema/v1.1" name="PLSQL Scanner">
+        xmlns:jqa-plugin="http://www.buschmais.com/jqassistant/core/plugin/schema/v1.0" name="PLSQL">
     <description>Provides a scanner for PLSQL files.</description>
     <model>
         <class>org.jqassistant.contrib.plugin.plsql.model.PLSQLDescriptor</class>
@@ -12,6 +12,9 @@
         <class>org.jqassistant.contrib.plugin.plsql.model.DataTypeDescriptor</class>
         <class>org.jqassistant.contrib.plugin.plsql.model.ValueDescriptor</class>
         <class>org.jqassistant.contrib.plugin.plsql.model.SubprogramDescriptor</class>
+        <class>org.jqassistant.contrib.plugin.plsql.model.SQLStatementDescriptor</class>
+        <class>org.jqassistant.contrib.plugin.plsql.model.TriggerDescriptor</class>
+        <class>org.jqassistant.contrib.plugin.plsql.model.CursorDescriptor</class>
     </model>
     <scanner>
         <class>org.jqassistant.contrib.plugin.plsql.scanner.PLSQLFileScannerPlugin</class>
