@@ -4,6 +4,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jqassistant.contrib.plugin.plsql.model.BeginBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.ExceptionBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.SubprogramDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 
@@ -11,6 +13,7 @@ public class PLSQLProcedureParser {
 	
     private final Store store;
     private final SubprogramDescriptor spDescriptor;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PLSQLSourceParser.class);
 
     PLSQLProcedureParser(final Store store, final SubprogramDescriptor spDescriptor) {
         this.store = store;
@@ -44,7 +47,7 @@ public class PLSQLProcedureParser {
                 		BeginBlockDescriptor begBlockDescriptor = store.create(BeginBlockDescriptor.class);
                 		spDescriptor.setBeginBlock(begBlockDescriptor);
                 		
-                		System.out.println("Added BeginBlock.");
+                		LOGGER.info("Added BeginBlock.");
                 		
                 		final PLSQLBeginBlockParser bbParser = new PLSQLBeginBlockParser(store, begBlockDescriptor);
                 		bbParser.parseTree(tree.getChild(x).getChild(y));
@@ -62,7 +65,7 @@ public class PLSQLProcedureParser {
         		ExceptionBlockDescriptor excBlockDescriptor = store.create(ExceptionBlockDescriptor.class);
         		spDescriptor.setExceptionBlock(excBlockDescriptor);
         		
-        		System.out.println("Added ExceptionBlock.");
+        		LOGGER.info("Added ExceptionBlock.");
         		
         		break;
         		

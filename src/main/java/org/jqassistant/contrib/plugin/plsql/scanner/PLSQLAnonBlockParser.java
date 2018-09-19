@@ -5,6 +5,8 @@ import org.jqassistant.contrib.plugin.plsql.model.BeginBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.DeclareBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.ExceptionBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.PLSQLBlockDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 
@@ -12,6 +14,7 @@ public class PLSQLAnonBlockParser {
 	
     private final Store store;
     private final PLSQLBlockDescriptor blockDescriptor;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PLSQLSourceParser.class);
 
     PLSQLAnonBlockParser(final Store store, final PLSQLBlockDescriptor blockDescriptor) {
         this.store = store;
@@ -31,7 +34,7 @@ public class PLSQLAnonBlockParser {
         		DeclareBlockDescriptor decBlockDescriptor = store.create(DeclareBlockDescriptor.class);
         		blockDescriptor.setDeclareBlock(decBlockDescriptor);
         		        		
-        		System.out.println("Added DeclareBlock.");
+        		LOGGER.info("Added DeclareBlock.");
         		
         		//Add all declared variables from the Declare Block.
         		
@@ -45,7 +48,7 @@ public class PLSQLAnonBlockParser {
         		BeginBlockDescriptor begBlockDescriptor = store.create(BeginBlockDescriptor.class);
         		blockDescriptor.setBeginBlock(begBlockDescriptor); 
 
-        		System.out.println("Added BeginBlock.");
+        		LOGGER.info("Added BeginBlock.");
         		
         		final PLSQLBeginBlockParser bbParser = new PLSQLBeginBlockParser(store, begBlockDescriptor);
         		bbParser.parseTree(tree.getChild(x));
@@ -57,7 +60,7 @@ public class PLSQLAnonBlockParser {
         		ExceptionBlockDescriptor excBlockDescriptor = store.create(ExceptionBlockDescriptor.class);
         		blockDescriptor.setExceptionBlock(excBlockDescriptor);
         		
-        		System.out.println("Added ExceptionBlock.");
+        		LOGGER.info("Added ExceptionBlock.");
         		
         		break;
         		
@@ -80,7 +83,7 @@ public class PLSQLAnonBlockParser {
         	        		DeclareBlockDescriptor decBlockDescriptorTr = store.create(DeclareBlockDescriptor.class);
         	        		blockDescriptor.setDeclareBlock(decBlockDescriptorTr);
         	        		
-        	        		System.out.println("Added DeclareBlock.");
+        	        		LOGGER.info("Added DeclareBlock.");
         	        		
         	        		final PLSQLVariableParser<DeclareBlockDescriptor> varParserTr = new PLSQLVariableParser<>(store, decBlockDescriptorTr);
         	        		varParserTr.parseTree(tree.getChild(x)); //Seq_of_declare_specs -> Declare_specs
@@ -102,7 +105,7 @@ public class PLSQLAnonBlockParser {
         		        		BeginBlockDescriptor begBlockDescriptorTr = store.create(BeginBlockDescriptor.class);
         		        		blockDescriptor.setBeginBlock(begBlockDescriptorTr);
         		        		
-        		        		System.out.println("Added BeginBlock.");
+        		        		LOGGER.info("Added BeginBlock.");
         		        		
         		        		final PLSQLBeginBlockParser bbParserTr = new PLSQLBeginBlockParser(store, begBlockDescriptorTr);
         		        		bbParserTr.parseTree(tree.getChild(x));
@@ -114,7 +117,8 @@ public class PLSQLAnonBlockParser {
         		        		ExceptionBlockDescriptor excBlockDescriptorTr = store.create(ExceptionBlockDescriptor.class);
         		        		blockDescriptor.setExceptionBlock(excBlockDescriptorTr);
         		        		
-        		        		System.out.println("Added ExceptionBlock.");
+        		        		LOGGER.info("Added ExceptionBlock.");
+        		        	
         		        		
         		        		break;
 

@@ -6,6 +6,8 @@ import org.jqassistant.contrib.plugin.plsql.model.DataTypeDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.DeclareBlockDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.ValueDescriptor;
 import org.jqassistant.contrib.plugin.plsql.model.VariableDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jqassistant.contrib.plugin.plsql.model.SubprogramDescriptor;
 
 import com.buschmais.jqassistant.core.store.api.Store;
@@ -15,6 +17,8 @@ public class PLSQLVariableParser<Parent> {
     private final Store store;
     
     private final Parent parent;
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(PLSQLSourceParser.class);
     
     PLSQLVariableParser(final Store store, final Parent parent) {
     	this.store = store;
@@ -53,7 +57,7 @@ public class PLSQLVariableParser<Parent> {
 					
 					varDescriptor.setName(treeWalker.getChild(0).getText()); //Variable_declaration->Identifier
 					
-					System.out.println("Added Variable. (" + treeWalker.getChild(0).getText() +")");
+					LOGGER.info("Added Variable. (" + treeWalker.getChild(0).getText() +")");
 		    		
 		    		for (int y = 0; y < treeWalker.getChildCount(); y++) {
 		    			
@@ -67,7 +71,7 @@ public class PLSQLVariableParser<Parent> {
 		    				varDescriptor.setDataType(dtDescriptor);
 		    				dtDescriptor.setDataType(treeWalker.getChild(y).getText());
 		    				
-		    				System.out.println("Added DataType. ("+treeWalker.getChild(y).getText()+")");
+		    				LOGGER.info("Added DataType. ("+treeWalker.getChild(y).getText()+")");
 		    				
 		    				break;
 		    				
@@ -83,7 +87,7 @@ public class PLSQLVariableParser<Parent> {
 		    				varDescriptor.setValue(valDescriptor);
 		    				valDescriptor.setValue(t2.getText());
 		    				
-		    				System.out.println("Added Value. ("+t2.getText()+")");
+		    				LOGGER.info("Added Value. ("+t2.getText()+")");
 		    				
 		    				break;
 		    			
@@ -116,7 +120,7 @@ public class PLSQLVariableParser<Parent> {
 						
 						curDescriptor.setName(treeWalker.getChild(z).getText()); //Cursor_declaration->Identifier
 						
-						System.out.println("Added Cursor. (" + treeWalker.getChild(z).getText() +")");
+						LOGGER.info("Added Cursor. (" + treeWalker.getChild(z).getText() +")");
 						
 					}
 					
