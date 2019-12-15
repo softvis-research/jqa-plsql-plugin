@@ -1,4 +1,4 @@
-// Generated from org/jqassistant/contrib/plugin/plsql/PlSqlParser.g4 by ANTLR 4.7
+// Generated from org\jqassistant\contrib\plugin\plsql\PlSqlParser.g4 by ANTLR 4.7
 package org.jqassistant.contrib.plugin.plsql;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

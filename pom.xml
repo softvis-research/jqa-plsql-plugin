@@ -3,14 +3,48 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jqassistant.contrib.plugin.plsql</groupId>
+    <parent>
+        <groupId>org.jqassistant.contrib.common</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.7.0</version>
+    </parent>
+
+    <groupId>org.jqassistant.contrib.plugin</groupId>
     <artifactId>jqa-plsql-plugin</artifactId>
-    <version>1.0</version>
-    
-    <name>plsql</name>
+    <version>0.0.1</version>
+
+    <name>jQAssistant PL/SQL Plugin</name>
+    <description>The jQAssistant plugin to scan and to analyze a Jira instance.</description>
+    <url>http://jqassistant.org/</url>
+
+    <developers>
+        <developer>
+            <id>richard-mueller</id>
+            <name>Richard Mueller</name>
+            <email>rmueller@wifa.uni-leipzig.de</email>
+        </developer>
+        <developer>
+            <id>dirk-mahler</id>
+            <name>Dirk Mahler</name>
+            <email>dirk.mahler@buschmais.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, v3</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:softvis-research/jqa-plsql-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:softvis-research/jqa-plsql-plugin.git</developerConnection>
+        <url>https://github.com/softvis-research/jqa-plsql-plugin.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
-        <jqassistant.version>1.4.0</jqassistant.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -19,41 +53,39 @@
 
     <!-- tag::dependencies[] -->
     <dependencies>
+
         <dependency>
             <groupId>com.buschmais.jqassistant.core</groupId>
             <artifactId>scanner</artifactId>
-            <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency> 
-            <groupId>org.antlr</groupId> 
-            <artifactId>antlr4-runtime</artifactId> 
-             <version>${antlr.version}</version> 
-        </dependency> 
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>${antlr.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.buschmais.jqassistant.plugin</groupId>
             <artifactId>common</artifactId>
-            <version>1.4</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Test dependencies -->
         <dependency>
             <groupId>com.buschmais.jqassistant.core</groupId>
             <artifactId>plugin</artifactId>
-            <version>1.4.0</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>com.buschmais.jqassistant.neo4jserver</groupId>
             <artifactId>neo4jv3</artifactId>
-            <version>1.4.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.buschmais.jqassistant.plugin</groupId>
             <artifactId>common</artifactId>
             <type>test-jar</type>
-            <version>1.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -69,7 +101,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <!-- end::dependencies[] -->    
+    <!-- end::dependencies[] -->
 
     <build>
         <plugins>
@@ -82,55 +114,55 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-		      <plugin>
-		        <groupId>org.antlr</groupId>
-		        <artifactId>antlr4-maven-plugin</artifactId>
-		        <version>${antlr.version}</version>    
-		        <configuration>
-		        	<sourceDirectory>src/main/antlr4</sourceDirectory>
-		        	<outputDirectory>src/main/antlr4</outputDirectory>
-		        	<visitor>true</visitor>
-		        	<listener>true</listener>
-		        </configuration>            
-                    <executions>
-                            <execution>
-                                    <goals>
-                                            <goal>antlr4</goal>
-                                    </goals>
-                            </execution>
-                    </executions>
-		      </plugin>           
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr.version}</version>
+                <configuration>
+                    <sourceDirectory>src/main/antlr4</sourceDirectory>
+                    <outputDirectory>src/main/antlr4</outputDirectory>
+                    <visitor>true</visitor>
+                    <listener>true</listener>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-        
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.20.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>        
+
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>
